@@ -1,9 +1,4 @@
-"""
-This file loads the data from the data folder and runs multiple
-models and hypertunings and finally stores the final model in the
-pickles folder and model scores in the outputs folder.
-"""
-
+# import tarfile
 import argparse
 import logging
 import os
@@ -14,6 +9,8 @@ import sys
 import numpy as np
 import pandas as pd
 from scipy.stats import randint
+
+# from six.moves import urllib
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LinearRegression
@@ -28,6 +25,7 @@ from sklearn.tree import DecisionTreeRegressor
 
 base_path = pathlib.Path(__file__).parent.parent.resolve()
 sys.path.append(os.path.join(base_path,'data'))  # noqa
+print(sys.path)
 import ingest_data  # noqa
 
 parser = argparse.ArgumentParser()
@@ -66,7 +64,9 @@ if log_path != '':
     logging.basicConfig(filename=l1)
 
 if no_console_log:
-    logging.disable(logging.DEBUG)
+    logger.disabled = True
+else:
+    logger.disabled = False
 
 if input_data == '':
     # checks for arguments, if empty calls the data-generation script.
@@ -211,7 +211,7 @@ final_model = grid_search.best_estimator_
 
 if model_output_path == '':
     # checks for user arguments, is empty stores default.
-    filename = os.path.join(base_path, 'pickles/finalized_model.sav')
+    filename = '../pickles/finalized_model.sav'
 else:
     filename = os.path.join(model_output_path, 'finalized_model.sav')
 

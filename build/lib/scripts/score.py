@@ -1,26 +1,33 @@
-"""This file stores the model scores and stores the result in the given folder.
-By default it loades the model from the pickles folder and stores the output
-in the outputs folder.
-This file accepts arguments for loading the data from a specific folder,
-loads the model from the given arguments and stores it in the given path."""
-
 import argparse
 import logging
 import os
-import pathlib
 import pickle
 import sys
 
 import numpy as np
 import pandas as pd
-from sklearn.impute import SimpleImputer
-from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import StratifiedShuffleSplit, train_test_split
 
-base_path = pathlib.Path(__file__).parent.parent.resolve()
-sys.path.append(os.path.join(base_path,'data'))  # noqa
-sys.path.append(os.path.join(base_path,'pickles'))  # noqa
-import ingest_data  # noqa
+# from six.moves import urllib
+# from sklearn.ensemble import RandomForestRegressor
+from sklearn.impute import SimpleImputer
+
+# from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import (  # GridSearchCV,; RandomizedSearchCV,
+    StratifiedShuffleSplit,
+    train_test_split,
+)
+
+# from sklearn.tree import DecisionTreeRegressor
+
+# from scipy.stats import randint
+
+
+if __name__ == "__main__":
+    sys.path.append('../data')  # noqa
+    sys.path.append('../pickles')  # noqa
+    import ingest_data
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model_load_path",
@@ -61,7 +68,9 @@ if log_path != '':
     logging.basicConfig(filename=l1)
 
 if no_console_log:
-    logging.disable(logging.DEBUG)
+    logger.disabled = True
+else:
+    logger.disabled = False
 
 if input_data == '':
     # checks for arguments, if empty calls the data-generation script.
@@ -70,7 +79,7 @@ else:
     housing = pd.read_csv(input_data)
 
 if model_load_path == '':
-    filename = os.path.join(base_path, 'pickles/finalized_model.sav')
+    filename = '../pickles/finalized_model.sav'
     final_model = pickle.load(open(filename, 'rb'))
 else:
     filename = os.path.join(model_load_path, 'finalized_model.sav')

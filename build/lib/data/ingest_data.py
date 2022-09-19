@@ -1,11 +1,3 @@
-"""
-This file creates the data for the dummy prediction.
-It generates the csv file from then given link and,
-stores that in the data folder.
-By default if no path is given it directly sends the csv file as
-binaries to the called function.
-"""
-
 import argparse
 import logging
 import os
@@ -48,7 +40,9 @@ if log_path != '':
     logging.basicConfig(filename=l1)
 
 if no_console_log:
-    logging.disable(logging.DEBUG)
+    logger.disabled = True
+else:
+    logger.disabled = False
 
 DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml/master/"
 HOUSING_PATH = os.path.join("datasets", "housing")
@@ -56,21 +50,6 @@ HOUSING_URL = "datasets/housing/housing.tgz"
 
 
 def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
-    """
-    This function retrieves the data-set from the given Url.
-
-    Parameters
-    ----------
-    HOUSING_URL : str
-        HOUSING URL.
-    housing_path : str
-        Housing path.
-
-    Returns
-    -------
-    None
-
-    """
     os.makedirs(housing_path, exist_ok=True)
     tgz_path = os.path.join(housing_path, "housing.tgz")
     urllib.request.urlretrieve(housing_url, tgz_path)
@@ -80,30 +59,6 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
 
 
 def load_housing_data(housing_path=HOUSING_PATH, output_path=output_path):
-    """
-    This function stores the generated csv into the given folder.
-    Default: Stores in data folder and passes the csv binaries to the
-    called function.
-
-    output_path: path of the out  folder e.g. : 'data/'
-
-    This function retrieves the data-set from the given Url.
-
-    Parameters
-    ----------
-    housing_path : str
-        Housing path.
-    output_path : str
-        Output path for data generation.
-
-    Returns
-    -------
-    output_path == ''
-        None.
-    output_path != ''
-        csv file
-
-    """
     csv_path = DOWNLOAD_ROOT + os.path.join(housing_path, "housing.csv")
     if output_path == '':
         pd.read_csv(csv_path).to_csv('input_data.csv')
