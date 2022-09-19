@@ -19,7 +19,7 @@ conda env create -f env.yml
 conda activate mle-dev
 
 ## To install dependencies
-In the project directory pip install .
+In the project directory "pip install . "
 
 ## to create data-csv
 Inside the data folder type in terminal:
