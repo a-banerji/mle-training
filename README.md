@@ -18,6 +18,9 @@ The following techniques have been used:
 conda env create -f env.yml
 conda activate mle-dev
 
+## To install dependencies
+In the project directory pip install .
+
 ## to create data-csv
 Inside the data folder type in terminal:
     python -c 'import ingest_data; ingest_data.load_housing_data()' --output_path=<path where you want the input_data.csv to be created>
