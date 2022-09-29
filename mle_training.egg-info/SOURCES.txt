@@ -13,4 +13,5 @@ mle_training.egg-info/top_level.txt
 scripts/__init__.py
 scripts/score.py
 scripts/train.py
+scripts/train_model.py
 scripts/test/__init__.py

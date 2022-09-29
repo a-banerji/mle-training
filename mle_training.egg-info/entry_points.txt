@@ -1,2 +1,3 @@
 [console_scripts]
 mle-training = train:main
+

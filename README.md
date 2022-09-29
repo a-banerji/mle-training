@@ -36,3 +36,11 @@ Note: On default it reads input from data folder and stores output in pickles fo
 python store.py < --model_load_path: "Input Path of the model" > < --data_load_path: "Data-set path" > <--output : "Output Excel path for scores">
 
 Note: On default it reads model from pickles folder, data-set from data folder and stores the excel for scores in output folder.
+
+## To install and run the pakage using wheel
+Inside the dist folder: pip install mle_training-0.2-py3-none-any.whl
+
+from data import ingest_data
+from scripts import trainmodel
+
+Pass the parameters inside the functions to run the tool.
